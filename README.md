@@ -1,70 +1,93 @@
-# Getting Started with Create React App
+# Virtual Store
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+An online shopping portal for a fictional store
 
-## Available Scripts
+[Click here to see phase 1 requirements](./docs/phase1.md);
 
-In the project directory, you can run:
+## Business Requirements
 
-### `npm start`
+Our application will power an online storefront that will allow our users to browse our product offerings by category, place items in their shopping cart, and check-out when they are ready to make their purchase
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Walkthrough Demo
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+![Virtual Store](https://code-401-javascript-guide.s3-us-west-2.amazonaws.com/assets/store.gif)
 
-### `npm test`
+The core requirements and functionality are as follows:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Display a list of our product categories
+- Display a listing of products for each category, when the category is selected
+- From the product listings:
+  - Click to view a full detail page about the product
+  - Add the product to your shopping cart
+- Shopping cart (simple version) always visible on screen
+- Full shopping cart and check out screen available from main navigation
 
-### `npm run build`
+## Technical Requirements
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+The application will be created with the following overall architecture and methodologies
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. React
+2. ES6 Classes
+3. Redux Store for Application State
+4. Deployed API with Mongo storage for storing categories and products
+5. Superagent or Axios for performing API Requests
+6. Material UI for layout and styling
+7. Test Driven Development, using Jest
+8. Deployment to a cloud provider (Netlify, Amplify, or GitHub Pages)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Application Structure (proposed)
 
-### `npm run eject`
+```text
+├── .gitignore
+├── .eslintrc.json
+├── __tests__
+│   ├── app.test.js
+│   ├── cart.test.js
+├── src
+│   ├── index.js
+│   ├── app.js
+│   ├── store
+│   │   ├── index.js
+│   │   ├── categories.js
+│   │   ├── products.js
+│   │   ├── cart.js
+│   ├── components
+│   │   ├── storefront
+│   │   │   └── categories.js
+│   │   │   └── current-category.js
+│   │   │   └── products.js
+│   │   │   └── storefront.js
+│   │   ├── products
+│   │   │   └── details.js
+│   │   ├── cart
+│   │   │   └── simplecart.js
+│   │   │   └── checkout.js
+│   │   ├── header
+│   │   │   └── header.js
+│   │   ├── footer
+│   │   │   └── footer.js
+└── package.json
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Development Process, Milestones
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+1. **Phase 1: Application Setup**
+   - asic React Application
+   - Redux State Management
+   - State managed in memory
+   - Material UI Components & Styling
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+2. **Phase 2: Shopping Cart**
+   - Add items to a shopping cart
+   - Update quantities
+   - Remove items from the cart
+   - Show the cart in real-time on the UI
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+3. **Phase 3: Live Data**
+   - Connect the application a live API
+   - Persist changes to products based on cart activity.
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+4. **Phase 4: Checkout & Detail Pages**
+   - Refactor the store to use the latest Redux design pattern (Redux Toolkit)
+   - Add a cart checkout page
+   - Add a product details page

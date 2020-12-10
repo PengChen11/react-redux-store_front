@@ -24,7 +24,6 @@ export default function reducer( state=initialState, action ) {
   // Switch makes it easier to read
   switch(type) {
     case 'counter/INITIALIZE':
-      console.log('payload is ', payload);
       return { ...state, count: parseInt(payload, 10) };
     case 'INCREMENT':
       return { ...state, count: state.count + 1};
@@ -49,7 +48,6 @@ export const decrement = () => {
 };
 
 export const initialize = (number) =>  {
-  console.log('counter init is called');
   return {
     type: 'counter/INITIALIZE',
     payload: number,

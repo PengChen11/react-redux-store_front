@@ -1,4 +1,4 @@
-import {useEffect} from 'react';
+import {useEffect, useCallback} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {active, init} from '../../store/categories.js';
 
@@ -27,17 +27,15 @@ export default function Categories () {
   const categories = useSelector (state => state.categoryStore.categories);
   const currentCategory = useSelector( state => state.categoryStore.active);
 
-  console.log('current categories', currentCategory);
-
   const dispatch = useDispatch();
 
   const setActive = (category) =>{
     dispatch(active(category));
   };
 
-  const initialize = (categories) => {
+  const initialize = useCallback((categories) => {
     dispatch(init(categories));
-  };
+  },[dispatch]);
 
   useEffect (()=>{
     const fakeFetchData = [
@@ -53,7 +51,7 @@ export default function Categories () {
 
     initialize(fakeFetchData);
 
-  },[]);
+  },[initialize]);
 
   return (
     <div className={classes.categories}>

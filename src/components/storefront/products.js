@@ -1,4 +1,4 @@
-import {useEffect} from 'react';
+import {useEffect, useCallback} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {init} from '../../store/products.js';
 
@@ -36,17 +36,15 @@ export default function Categories () {
   const classes = useStyles();
   
   const products = useSelector (state => state.productStore.products);
-  const currentProduct = useSelector( state => state.productStore.active);
-  const currentCategory = useSelector( state => state.categoryStore.active);
 
-  console.log('current product', currentProduct);
+  const currentCategory = useSelector( state => state.categoryStore.active);
 
   const dispatch = useDispatch();
 
 
-  const initialize = (products) => {
+  const initialize = useCallback((products) => {
     dispatch(init(products));
-  };
+  },[dispatch]);
 
   useEffect (()=>{
     const fakeFetchFoodProducts = [
@@ -84,7 +82,7 @@ export default function Categories () {
       currentCategory.name === 'electronics' && initialize(fakeFetchElectronicsProducts);
     }
     
-  },[currentCategory]);
+  },[currentCategory, initialize]);
 
   return (
     <>

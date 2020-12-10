@@ -2,6 +2,8 @@
 
 An online shopping portal for a fictional store
 
+deployed site url: <https://pengchen11.github.io/react-redux-store_front/>
+
 [Click here to see phase 1 requirements](./docs/phase1.md);
 
 ## Business Requirements

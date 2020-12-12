@@ -1,6 +1,6 @@
 import {useEffect, useCallback} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {active, init} from '../../store/categories.js';
+import {active, init} from '../../store/categories_reducer.js';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -40,10 +40,12 @@ export default function Categories () {
   useEffect (()=>{
     const fakeFetchData = [
       {
+        _id: Math.random(),
         name: 'food',
         description: 'Any nutritious substance that people or animals eat or drink or that plants absorb in order to maintain life and growth.',
       },
       {
+        _id: Math.random(),
         name: 'electronics',
         description: 'Electronic components, devices, or equipment',
       },

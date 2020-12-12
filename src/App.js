@@ -4,6 +4,7 @@ import Header from './components/header/header.js';
 import Footer from './components/footer/footer.js';
 import Categories from './components/storefront/categories.js';
 import Products from './components/storefront/products.js';
+import SimpleCart from './components/cart/simplecart.js';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
       <main>
         <Categories />
         <Products />
+        <SimpleCart />
       </main>
       <Footer />
     </Provider>

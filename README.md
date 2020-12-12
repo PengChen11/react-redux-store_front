@@ -6,6 +6,8 @@ deployed site url: <https://pengchen11.github.io/react-redux-store_front/>
 
 [Click here to see phase 1 requirements](./docs/phase1.md);
 
+[Click here to see phase 2 requirements](./docs/phase2.md);
+
 ## Business Requirements
 
 Our application will power an online storefront that will allow our users to browse our product offerings by category, place items in their shopping cart, and check-out when they are ready to make their purchase

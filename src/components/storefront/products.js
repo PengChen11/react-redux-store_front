@@ -1,6 +1,7 @@
 import {useEffect, useCallback} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {init} from '../../store/products.js';
+import {init} from '../../store/products_reducer.js';
+import {addItem} from '../../store/cart_reducer.js';
 
 import { Link } from 'react-router-dom';
 
@@ -46,9 +47,14 @@ export default function Categories () {
     dispatch(init(products));
   },[dispatch]);
 
+  const addItemToCart = product => {
+    dispatch(addItem(product));
+  };
+
   useEffect (()=>{
     const fakeFetchFoodProducts = [
       {
+        _id: Math.random(),
         name: 'Apples',
         category: 'food',
         description: 'The round fruit of a tree of the rose family, which typically has thin red or green skin and crisp flesh. Many varieties have been developed as dessert or cooking fruit or for making cider.',
@@ -57,6 +63,7 @@ export default function Categories () {
         img:'https://images.heb.com/is/image/HEBGrocery/000320625',
       },
       {
+        _id: Math.random(),
         name: 'Calzones',
         category: 'food',
         description: 'A type of pizza that is folded in half before cooking to contain a filling.',
@@ -68,6 +75,7 @@ export default function Categories () {
 
     const fakeFetchElectronicsProducts = [
       {
+        _id: Math.random(),
         name: 'TV',
         category: 'electronics',
         description: 'A system for transmitting visual images and sound that are reproduced on screens, chiefly used to broadcast programs for entertainment, information, and education.',
@@ -105,7 +113,7 @@ export default function Categories () {
                   </Typography>
                 </CardContent>
                 <CardActions>
-                  <Button size="small" color="primary" onClick={null}>
+                  <Button size="small" color="primary" onClick={()=>addItemToCart(product)}>
                     Add To Cart
                   </Button>
                   <Button size="small" color="primary" component={Link} to={`/product/${product._id}`}>

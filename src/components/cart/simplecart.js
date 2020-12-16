@@ -1,8 +1,11 @@
 import { When } from 'react-if';
+import {useDispatch, useSelector} from 'react-redux';
+
 import { makeStyles } from '@material-ui/core/styles';
+
 import { removeItem } from '../../store/cart_reducer.js';
 import { increaseStockQty } from '../../store/products_reducer.js';
-import {useDispatch, useSelector} from 'react-redux';
+
 import './simplecart.css';
 
 const useStyles = makeStyles((theme) => ({

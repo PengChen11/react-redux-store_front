@@ -2,6 +2,8 @@ const axios = require('axios');
 
 const initialState = {
   products: [],
+  isLoading: true,
+  pendingAddToCart: false,
 };
 
 export default function reducer (state=initialState, action){
@@ -10,7 +12,10 @@ export default function reducer (state=initialState, action){
   switch(type){
 
     case 'products/initialize':
-      return {...state, products:payload };
+      return {...state, products:payload, isLoading: false };
+
+    case 'products/loading':
+      return {...state, pendingAddToCart: true };
 
     case 'products/reduceQty': {
 
@@ -18,7 +23,7 @@ export default function reducer (state=initialState, action){
         product._id === payload._id ? payload : product
       );
 
-      return {...state, products:newState};
+      return {...state, products:newState, pendingAddToCart: false};
     }
 
     case 'products/increaseQty':
@@ -70,4 +75,10 @@ export const increaseStockQty = (itemFromCart) => async dispatch =>{
     payload: data,
   });
 
+};
+
+export const loading = () =>{
+  return {
+    type: 'products/loading',
+  };
 };

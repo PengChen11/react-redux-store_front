@@ -1,3 +1,5 @@
+const axios = require('axios');
+
 const initialState = {
   categories: [],
   active: null,
@@ -26,9 +28,12 @@ export const active = (category) =>{
   };
 };
 
-export const init = (categories) =>{
-  return {
+export const init = () => async dispatch =>{
+  const url = `${process.env.REACT_APP_API}/api/categories`;
+  const {data} = await axios.get(url);
+
+  dispatch( {
     type: 'categories/initialize',
-    payload: categories,
-  };
+    payload: data,
+  });
 };

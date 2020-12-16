@@ -1,6 +1,7 @@
-import {useEffect, useCallback} from 'react';
+import {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {init} from '../../store/products_reducer.js';
+import {reduceStockQty} from '../../store/products_reducer.js';
 import {addItem} from '../../store/cart_reducer.js';
 
 import { Link } from 'react-router-dom';
@@ -26,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
   },
   cardMedia: {
-    paddingTop: '56.25%', // 16:9
+    paddingTop: '56.25%', 
   },
   cardContent: {
     flexGrow: 1,
@@ -42,55 +43,17 @@ export default function Categories () {
 
   const dispatch = useDispatch();
 
-
-  const initialize = useCallback((products) => {
-    dispatch(init(products));
-  },[dispatch]);
-
   const addItemToCart = product => {
     dispatch(addItem(product));
+    dispatch(reduceStockQty(product));
   };
 
   useEffect (()=>{
-    const fakeFetchFoodProducts = [
-      {
-        _id: Math.random(),
-        name: 'Apples',
-        category: 'food',
-        description: 'The round fruit of a tree of the rose family, which typically has thin red or green skin and crisp flesh. Many varieties have been developed as dessert or cooking fruit or for making cider.',
-        price: 1.99,
-        inStock: 100,
-        img:'https://images.heb.com/is/image/HEBGrocery/000320625',
-      },
-      {
-        _id: Math.random(),
-        name: 'Calzones',
-        category: 'food',
-        description: 'A type of pizza that is folded in half before cooking to contain a filling.',
-        price: 5.99,
-        inStock: 100,
-        img:'https://www.collinsdictionary.com/images/full/calzone_183552134.jpg?version=4.0.114',
-      },
-    ];
 
-    const fakeFetchElectronicsProducts = [
-      {
-        _id: Math.random(),
-        name: 'TV',
-        category: 'electronics',
-        description: 'A system for transmitting visual images and sound that are reproduced on screens, chiefly used to broadcast programs for entertainment, information, and education.',
-        price: 255.99,
-        inStock: 4,
-        img:'https://www.collinsdictionary.com/images/full/television_160593200.jpg?version=4.0.114',
-      },
-    ];
+    currentCategory && dispatch(init(currentCategory.name));
 
-    if (currentCategory){
-      currentCategory.name === 'food' && initialize(fakeFetchFoodProducts);
-      currentCategory.name === 'electronics' && initialize(fakeFetchElectronicsProducts);
-    }
-    
-  },[currentCategory, initialize]);
+    console.log('I am using effect');
+  },[currentCategory, dispatch]);
 
   return (
     <>
@@ -105,15 +68,18 @@ export default function Categories () {
                   title={product.name}
                 />
                 <CardContent className={classes.cardContent}>
-                  <Typography gutterBottom variant="h5" component="h2">
+                  <Typography gutterBottom variant="h5" component="h2" display='inline'>
                     {product.name}
+                  </Typography>
+                  <Typography align = 'right'>
+                    Qty:{product.inStock}
                   </Typography>
                   <Typography>
                     {product.description}
                   </Typography>
                 </CardContent>
                 <CardActions>
-                  <Button size="small" color="primary" onClick={()=>addItemToCart(product)}>
+                  <Button size="small" color="primary" onClick={()=>addItemToCart(product)} disabled={product.inStock===0? true: false}>
                     Add To Cart
                   </Button>
                   <Button size="small" color="primary" component={Link} to={`/product/${product._id}`}>

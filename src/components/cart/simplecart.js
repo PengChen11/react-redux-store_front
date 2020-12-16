@@ -1,6 +1,7 @@
 import { When } from 'react-if';
 import { makeStyles } from '@material-ui/core/styles';
 import { removeItem } from '../../store/cart_reducer.js';
+import { increaseStockQty } from '../../store/products_reducer.js';
 import {useDispatch, useSelector} from 'react-redux';
 import './simplecart.css';
 
@@ -32,11 +33,12 @@ export default function SimpleCart () {
   const classes = useStyles();
 
   const itemsInCart = useSelector (state => state.cartStore.itemsInCart);
-  console.log('items in cart: ', itemsInCart);
+
   const dispatch = useDispatch();
 
-  const removeItemFromCart = productID =>{
-    dispatch(removeItem(productID));
+  const removeItemFromCart = item =>{
+    dispatch(removeItem(item.product._id));
+    dispatch(increaseStockQty(item));
   };
 
   return (
@@ -48,7 +50,7 @@ export default function SimpleCart () {
               <li key={item.product._id} className={classes.item}>
                 <span>{item.product.name}</span>
                 <span>Qty: {item.quantity}</span>
-                <span className={classes.remove} onClick={() => removeItemFromCart(item.product._id)}>x</span>
+                <span className={classes.remove} onClick={() => removeItemFromCart(item)}>x</span>
               </li>
             )}
           </ul>

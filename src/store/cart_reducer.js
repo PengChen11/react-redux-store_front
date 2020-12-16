@@ -13,15 +13,23 @@ export default function reducer (state=initialState, action){
       
       itemLookUpInCart = state.itemsInCart.filter(item => item.product._id === payload._id);
       
-      console.log('itemLookUpInCart: ',itemLookUpInCart );
-      if (itemLookUpInCart.length === 0) {
 
-        return {itemsInCart: [...state.itemsInCart, {product: payload,quantity:1 }] };
+      if (itemLookUpInCart.length === 0) {
+        const newState = {
+          itemsInCart: [
+            ...state.itemsInCart, 
+            {
+              product: {...payload, inStock: payload.inStock - 1},quantity:1,
+            },
+          ],
+        };
+        return newState;
+
       } else {
 
-        let newState = {
+        const newState = {
           itemsInCart: state.itemsInCart.map( item => {
-            return item.product._id === payload._id ? {...item, quantity: item.quantity + 1} : item;
+            return item.product._id === payload._id ? {product: {...payload, inStock: payload.inStock - 1}, quantity: item.quantity + 1} : item;
           })};
 
         return newState;

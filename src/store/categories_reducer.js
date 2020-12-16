@@ -3,6 +3,7 @@ const axios = require('axios');
 const initialState = {
   categories: [],
   active: null,
+  isLoading: true,
 };
 
 export default function reducer (state=initialState, action){
@@ -11,7 +12,8 @@ export default function reducer (state=initialState, action){
   switch(type){
 
     case 'categories/initialize':
-      return {...state, categories:payload, active: payload[0] };
+
+      return {...state, categories:payload, active: payload[0], isLoading: false };
 
     case 'categories/active':
       return {...state, active: payload};
@@ -31,6 +33,7 @@ export const active = (category) =>{
 export const init = () => async dispatch =>{
   const url = `${process.env.REACT_APP_API}/api/categories`;
   const {data} = await axios.get(url);
+
 
   dispatch( {
     type: 'categories/initialize',

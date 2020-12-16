@@ -19,8 +19,8 @@ jobs:
         git remote set-url origin https://${{ secrets.PERSONAL_TOKEN }}@github.com/${{ github.repository }}.git
         npm install
         npm run deploy
-      # env:
-      #   REACT_APP_SIGNIN_URL: ${{ secrets.REACT_APP_SIGNIN_URL }}
+      env:
+        REACT_APP_API: ${{ secrets.REACT_APP_API }}
       #   REACT_APP_SIGNUP_URL: ${{ secrets.REACT_APP_SIGNUP_URL }}
       #   REACT_APP_TODO_URL: ${{ secrets.REACT_APP_TODO_URL }}
       #   REACT_APP_SECRET: ${{ secrets.REACT_APP_SECRET }}
